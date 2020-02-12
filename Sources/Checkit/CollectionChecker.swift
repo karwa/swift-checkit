@@ -6,21 +6,17 @@
 ///
 public struct CollectionChecker {
     
-    private static func getContext(file: StaticString, line: UInt) -> XCTAssertionContext {
-        return XCTAssertionContext(file: file, line: line) { _, myLine, myMsg in "\(myLine): \(myMsg)" }
-    }
-    
     public static func check<C: Collection>(
         _ collection: C, file: StaticString = #file, line: UInt = #line
     ) {
-        let xct = getContext(file: file, line: line)
+        let xct = XCTAssertionContext(file: file, line: line)
         runBaseCollectionTests(collection, xct)
     }
     
     public static func check<C: Collection>(
         _ collection: C, file: StaticString = #file, line: UInt = #line
     ) where C.Element: Equatable {
-        let xct = getContext(file: file, line: line)
+        let xct = XCTAssertionContext(file: file, line: line)
         runBaseCollectionTests(collection, xct)
         runBaseCollectionTests_eq(collection, xct)
     }
@@ -28,7 +24,7 @@ public struct CollectionChecker {
     public static func check<C: BidirectionalCollection>(
         _ collection: C, file: StaticString = #file, line: UInt = #line
     ) {
-        let xct = getContext(file: file, line: line)
+        let xct = XCTAssertionContext(file: file, line: line)
         runBaseCollectionTests(collection, xct)
         runBidirectionalCollectionTests(collection, xct)
     }
@@ -36,7 +32,7 @@ public struct CollectionChecker {
     public static func check<C: BidirectionalCollection>(
         _ collection: C, file: StaticString = #file, line: UInt = #line
     ) where C.Element: Equatable {
-        let xct = getContext(file: file, line: line)
+        let xct = XCTAssertionContext(file: file, line: line)
         runBaseCollectionTests(collection, xct)
         runBidirectionalCollectionTests(collection, xct)
         

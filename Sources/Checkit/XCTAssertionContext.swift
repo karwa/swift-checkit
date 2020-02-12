@@ -16,7 +16,7 @@ public struct XCTAssertionContext {
     public var line: UInt
     public var messageFormatter: MessageFormatter
     
-    public init(file: StaticString = #file, line: UInt = #line, messageFormatter: @escaping MessageFormatter = { $2 }) {
+    public init(file: StaticString = #file, line: UInt = #line, messageFormatter: @escaping MessageFormatter = { "\($0)@\($1): \($2)" }) {
         self.file = file
         self.line = line
         self.messageFormatter = messageFormatter
