@@ -4,20 +4,20 @@
 /// asserting that they adhere to the various semantics documented by the protocol.
 /// These tests are not exhaustive, and you should combine them with your own tests.
 ///
-public struct CollectionSemanticsTester {
+public struct CollectionChecker {
     
     private static func getContext(file: StaticString, line: UInt) -> XCTAssertionContext {
         return XCTAssertionContext(file: file, line: line) { _, myLine, myMsg in "\(myLine): \(myMsg)" }
     }
     
-    public static func test<C: Collection>(
+    public static func check<C: Collection>(
         _ collection: C, file: StaticString = #file, line: UInt = #line
     ) {
         let xct = getContext(file: file, line: line)
         runBaseCollectionTests(collection, xct)
     }
     
-    public static func test<C: Collection>(
+    public static func check<C: Collection>(
         _ collection: C, file: StaticString = #file, line: UInt = #line
     ) where C.Element: Equatable {
         let xct = getContext(file: file, line: line)
@@ -25,7 +25,7 @@ public struct CollectionSemanticsTester {
         runBaseCollectionTests_eq(collection, xct)
     }
     
-    public static func test<C: BidirectionalCollection>(
+    public static func check<C: BidirectionalCollection>(
         _ collection: C, file: StaticString = #file, line: UInt = #line
     ) {
         let xct = getContext(file: file, line: line)
@@ -33,7 +33,7 @@ public struct CollectionSemanticsTester {
         runBidirectionalCollectionTests(collection, xct)
     }
     
-    public static func test<C: BidirectionalCollection>(
+    public static func check<C: BidirectionalCollection>(
         _ collection: C, file: StaticString = #file, line: UInt = #line
     ) where C.Element: Equatable {
         let xct = getContext(file: file, line: line)
@@ -46,7 +46,7 @@ public struct CollectionSemanticsTester {
 
 // Collection tests.
 
-extension CollectionSemanticsTester {
+extension CollectionChecker {
     
     @inline(never)
     static func runBaseCollectionTests<C: Collection>(_ collection: C, _ xct: XCTAssertionContext) {
@@ -155,7 +155,7 @@ extension CollectionSemanticsTester {
 
 // Collection tests where Element: Equatable
 
-extension CollectionSemanticsTester {
+extension CollectionChecker {
     
     @inline(never)
     static func runBaseCollectionTests_eq<C: Collection>(_ collection: C, _ xct: XCTAssertionContext)
@@ -189,7 +189,7 @@ extension CollectionSemanticsTester {
 
 // Bidirectional tests.
 
-extension CollectionSemanticsTester {
+extension CollectionChecker {
     
     @inline(never)
     static func runBidirectionalCollectionTests<C: BidirectionalCollection>(_ collection: C, _ xct: XCTAssertionContext) {
