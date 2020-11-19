@@ -239,6 +239,9 @@ extension CollectionChecker {
             }
         }
         // in-place index formation.
+        // This doesn't work for collections which conditionally conform to BidirectionalCollection.
+        // https://bugs.swift.org/browse/SR-13874
+      #if false
         if collection.isEmpty {
             xct.assertFalse(collection.formIndex(&end, offsetBy: -1, limitedBy: collection.startIndex),
                             "decrementing endIndex in-place should return false")
@@ -254,5 +257,6 @@ extension CollectionChecker {
             xct.assertEqual(end, collection.endIndex,
                             "decrementing endIndex and incrementing it by >1 (in-place) should leave the index equal to endIndex")
         }
+      #endif
     }
 }
